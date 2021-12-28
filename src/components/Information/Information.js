@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Information.scss'
 import axios from 'axios'
 
-function Information() {
+function Information(props) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [sectionId, setSectionId] = useState(0)
@@ -23,6 +23,7 @@ function Information() {
   useEffect(() => {
     setHasPrevious(sectionId > 0)
     setHasNext(sectionId < sectionNumber - 1)
+    props.setSectionId(sectionId)
   }, [sectionId])
 
   const handlePrevious = () => {

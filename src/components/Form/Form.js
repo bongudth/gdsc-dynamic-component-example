@@ -1,37 +1,43 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Form.scss'
+import axios from 'axios'
+import Question from '../Question/Question'
 
-function Form() {
+function Form(props) {
+  const [sectionId, setSectionId] = useState(props.sectionId)
+  const [sections, setSections] = useState([])
+  const [sectionTitle, setSectionTitle] = useState('')
+  const [sectionDescription, setSectionDescription] = useState('')
+  const [questions, setQuestions] = useState([])
+
+  useEffect(() => {
+    axios.get('https://gist.githubusercontent.com/bittermeatball/7854f3d7950469b0203a068fcaf27908/raw/1de87462c4f8c2fd0bfb9d452b246c92697b2eee/sample.json')
+      .then(res => {
+        setSections(res.data.sections)
+      })
+  }, [])
+
+  useEffect(() => {
+    setSectionId(props.sectionId)
+  }, [props.sectionId])
+
+  useEffect(() => {
+    if (sections.length === 0) return
+    setSectionTitle(sections[sectionId].title)
+    setSectionDescription(sections[sectionId].description)
+    setQuestions(sections[sectionId].questions)
+  }, [sectionId, sections])
+
   return (
     <div className='form-container'>
       <div className='form-section'>
-        <div className='form-title'>Khảo sát sơ bộ</div>
-        <div className='form-description'>GDSC là một cộng đồng, một sân chơi, môi trường cho các bạn thoả sức sáng tạo, thể hiện đam mê và học hỏi từ những thành viên thế hệ trước</div>
-
-        <div className='form-question'>Bạn là sinh viên năm mấy?</div>
-        <input className='form-input' placeholder='Nhập số' />
-        <div className='form-error'>
-          <i class="fas fa-exclamation-circle"></i>
-          <div>Trường này chỉ có thể nhập số!</div>
-        </div>
-
-        <div className='form-question'>Các bạn đã tham gia GDSC được bao lâu rồi?</div>
-        <div className='form-question-description'>Thời gian các bạn tham gia GDSC, tính theo thế hệ (generation)</div>
-        <input type="radio" id="1" name="generation" value="1" />
-        <label for="1">1 thế hệ</label>
-        <br />
-        <input type="radio" id="2" name="generation" value="2" />
-        <label for="2">2 thế hệ</label>
-        <br />
-        <input type="radio" id="3" name="generation" value="3" />
-        <label for="3">3 thế hệ</label>
-        <br />
-        <input type="radio" id="4" name="generation" value="4" />
-        <label for="4">4 thế hệ</label>
-
-        <div className='form-question'>Hãy nêu cảm nhận của bạn về thời gian vừa qua.</div>
-        <div className='form-question-description'>Bạn có cảm thấy thoải mái không? Bạn có cảm thấy vui không? Bạn đã học được gì rồi? Bạn te... được bao nhiêu bug rồi?...hãy nói hết đi...</div>
-        <textarea className='form-textarea' placeholder='Nhập chữ dài' />
+        <div className='form-title'>{sectionTitle}</div>
+        <div className='form-description'>{sectionDescription}</div>
+        {
+          questions.map((question, index) => {
+            return <Question key={index} question={question} />
+          })
+        }
       </div>
     </div>
   )

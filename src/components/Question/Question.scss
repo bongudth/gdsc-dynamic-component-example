@@ -1,0 +1,32 @@
+.question {
+  margin-top: 10px;
+}
+
+.question-description {
+  color: #13151b;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.question-error {
+  color: #d84a45;
+  font-size: 12px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.question-input,
+.question-textarea {
+  width: 100%;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  border-left: 2px solid #d86f45;
+  padding-left: 10px;
+}
+
+.question-textarea {
+  height: 150px;
+}
