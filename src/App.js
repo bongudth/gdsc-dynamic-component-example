@@ -1,11 +1,12 @@
-import './App.scss';
+import './App.scss'
+import Information from './components/Information/Information'
 
 function App() {
   return (
-    <div>
-      <div>Hello World</div>
+    <div className='app-container'>
+      <Information />
     </div>
   );
 }
 
-export default App;
+export default App
