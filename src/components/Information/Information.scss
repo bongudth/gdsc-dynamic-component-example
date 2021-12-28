@@ -31,6 +31,12 @@
       border: none;
       border-radius: 5px;
       padding: 10px 15px;
+      cursor: pointer;
+
+      &.none {
+        background-color: #d3ae9f;
+        cursor: default;
+      }
     }
   }
 }
