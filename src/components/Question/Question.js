@@ -8,6 +8,11 @@ function Question(props) {
     setQuestion(props.question)
   }, [props.question])
 
+  const randomName = () => {
+    const name = Math.random().toString(36).substring(2, 15)
+    return name
+  }
+
   if (question.type === 'SHORT_TEXT') {
     return (
       <div>
@@ -33,6 +38,8 @@ function Question(props) {
   }
 
   if (question.type === 'RADIO') {
+    const name = randomName()
+
     return (
       <div>
         <div className='question'>{question.question}</div>
@@ -40,7 +47,7 @@ function Question(props) {
         {question.options.map((option, index) => {
           return (
             <div key={index}>
-              <input type='radio' id={option.value} value={option.value} name />
+              <input type='radio' id={option.value} value={option.value} name={name} />
               <label htmlFor={option.value}>{option.text}</label>
             </div>
           )
