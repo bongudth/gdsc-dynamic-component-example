@@ -25,17 +25,40 @@
     margin: 50px;
 
     .information-button {
-      width: 40%;
-      background-color: #D86F45;
-      color: #FFFFFF;
+      width: 48%;
+      background-color: #FFF5EE;
+      color: #D86F45;
       border: none;
       border-radius: 5px;
+      box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
       padding: 10px 15px;
       cursor: pointer;
+      transition: all 0.3s ease;
 
       &.none {
-        background-color: #d3ae9f;
-        cursor: default;
+        box-shadow: #D6D6E7 0 3px 7px inset;
+        transform: translateY(2px);
+        cursor: not-allowed;
+
+        &:hover {
+          box-shadow: #D6D6E7 0 3px 7px inset;
+          transform: translateY(2px);
+        }
+
+        &:active {
+          box-shadow: #D6D6E7 0 3px 7px inset;
+          transform: translateY(2px);
+        }
+      }
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+      }
+
+      &:active {
+        transform: translateY(2px);
+        box-shadow: #D6D6E7 0 3px 7px inset;
       }
     }
   }
