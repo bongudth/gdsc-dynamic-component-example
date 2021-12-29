@@ -47,7 +47,7 @@ function Question(props) {
         {question.options.map((option, index) => {
           return (
             <div key={index}>
-              <input type='radio' id={option.value} value={option.value} name={name} />
+              <input type='radio' className='question-radio' id={option.value} value={option.value} name={name} />
               <label htmlFor={option.value}>{option.text}</label>
             </div>
           )

@@ -4,8 +4,9 @@
   
   .form-section {
     height: calc(100% - 100px);
-    background-color: #F5D6B4;
+    background-color: #FFF5EE;
     border-radius: 10px;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
     overflow: auto;
     margin: 25px;
     padding: 25px;
