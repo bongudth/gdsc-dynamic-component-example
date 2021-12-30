@@ -3,10 +3,24 @@ import '../Question/Question.scss'
 
 function Question(props) {
   const [question, setQuestion] = useState(props.question)
+  const [answer, setAnswer] = useState('')
 
   useEffect(() => {
     setQuestion(props.question)
-  }, [props.question])
+    props.setAnswers((propsAnswers) => {
+      propsAnswers[props.index] = answer
+      return propsAnswers
+    })
+  }, [props.question, answer])
+
+  const QuestionContent = () => {
+    return (
+      <div>
+        <div className='question'>{question.question}</div>
+        <div className='question-description'>{question.description}</div>
+      </div>
+    )
+  }
 
   const randomName = () => {
     const name = Math.random().toString(36).substring(2, 15)
@@ -16,9 +30,14 @@ function Question(props) {
   if (question.type === 'SHORT_TEXT') {
     return (
       <div>
-        <div className='question'>{question.question}</div>
-        <div className='question-description'>{question.description}</div>
-        <input type='text' className='question-input' placeholder='Nhập chữ' required={question.required} />
+        <QuestionContent />
+        <input
+          type='text'
+          className='question-input'
+          placeholder='Nhập chữ'
+          required={question.required}
+          onChange={(e) => setAnswer(e.target.value)}
+        />
       </div>
     )
   }
@@ -26,9 +45,16 @@ function Question(props) {
   if (question.type === 'NUMBER') {
     return (
       <div>
-        <div className='question'>{question.question}</div>
-        <div className='question-description'>{question.description}</div>
-        <input type='number' className='question-input' placeholder='Nhập số' min={question.attrs.min} max={question.attrs.max} required={question.required} />
+        <QuestionContent />
+        <input
+          type='number'
+          className='question-input'
+          placeholder='Nhập số'
+          min={question.attrs.min}
+          max={question.attrs.max}
+          required={question.required}
+          onChange={(e) => setAnswer(e.target.value)}
+        />
         <div className='question-error'>
           <i className='fas fa-exclamation-circle'></i>
           <div>Trường này chỉ có thể nhập số!</div>
@@ -42,27 +68,38 @@ function Question(props) {
 
     return (
       <div>
-        <div className='question'>{question.question}</div>
-        <div className='question-description'>{question.description}</div>
+        <QuestionContent />
         {question.options.map((option, index) => {
           return (
             <div key={index}>
-              <input type='radio' className='question-radio' id={option.value} value={option.value} name={name} />
+              <input
+                type='radio'
+                className='question-radio'
+                id={option.value}
+                value={option.value}
+                name={name}
+                onChange={(e) => setAnswer(e.target.value)}
+              />
               <label htmlFor={option.value}>{option.text}</label>
             </div>
           )
         })
         }
-      </div >
+      </div>
     )
   }
 
   if (question.type === 'LONG_TEXT') {
     return (
       <div>
-        <div className='question'>{question.question}</div>
-        <div className='question-description'>{question.description}</div>
-        <textarea className='question-textarea' placeholder='Nhập chữ dài' minLength={question.attrs.minLength} maxLength={question.attrs.maxLength} />
+        <QuestionContent />
+        <textarea
+          className='question-textarea'
+          placeholder='Nhập chữ dài'
+          minLength={question.attrs.minLength}
+          maxLength={question.attrs.maxLength}
+          onChange={(e) => setAnswer(e.target.value)}
+        />
       </div>
     )
   }

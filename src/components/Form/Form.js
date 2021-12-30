@@ -9,6 +9,7 @@ function Form(props) {
   const [sectionTitle, setSectionTitle] = useState('')
   const [sectionDescription, setSectionDescription] = useState('')
   const [questions, setQuestions] = useState([])
+  const [answers, setAnswers] = useState([])
 
   useEffect(() => {
     axios.get('https://gist.githubusercontent.com/bittermeatball/7854f3d7950469b0203a068fcaf27908/raw/1de87462c4f8c2fd0bfb9d452b246c92697b2eee/sample.json')
@@ -35,7 +36,7 @@ function Form(props) {
         <div className='form-description'>{sectionDescription}</div>
         {
           questions.map((question, index) => {
-            return <Question key={index} question={question} />
+            return <Question key={index} index={index} question={question} setAnswers={setAnswers} />
           })
         }
       </div>
