@@ -29,6 +29,11 @@ function Form(props) {
     setQuestions(sections[sectionId].questions)
   }, [sectionId, sections])
 
+  useEffect(() => {
+    if (questions.length === 0) return
+    props.setIsComplete(answers.filter(answer => answer === '').length === 0)
+  }, [JSON.stringify(answers)])
+
   return (
     <div className='form-container'>
       <div className='form-section'>

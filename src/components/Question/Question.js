@@ -9,7 +9,7 @@ function Question(props) {
     setQuestion(props.question)
     props.setAnswers((propsAnswers) => {
       propsAnswers[props.index] = answer
-      return propsAnswers
+      return [...propsAnswers]
     })
   }, [props.question, answer])
 

@@ -9,6 +9,7 @@ function Information(props) {
   const [sectionNumber, setSectionNumber] = useState(1)
   const [hasPrevious, setHasPrevious] = useState(false)
   const [hasNext, setHasNext] = useState(false)
+  const [isComplete, setIsComplete] = useState(props.isComplete)
 
   useEffect(() => {
     axios.get('https://gist.githubusercontent.com/bittermeatball/7854f3d7950469b0203a068fcaf27908/raw/1de87462c4f8c2fd0bfb9d452b246c92697b2eee/sample.json')
@@ -23,8 +24,9 @@ function Information(props) {
   useEffect(() => {
     setHasPrevious(sectionId > 0)
     setHasNext(sectionId < sectionNumber - 1)
+    setIsComplete(props.isComplete)
     props.setSectionId(sectionId)
-  }, [sectionId])
+  }, [sectionId, props.isComplete])
 
   const handlePrevious = () => {
     if (sectionId > 0) {
@@ -33,7 +35,7 @@ function Information(props) {
   }
 
   const handleNext = () => {
-    if (sectionId < sectionNumber - 1) {
+    if ((sectionId < sectionNumber - 1) && isComplete) {
       setSectionId(sectionId + 1)
     }
   }
@@ -46,7 +48,7 @@ function Information(props) {
       </div>
       <div className='information-action'>
         <button className={`information-button ${hasPrevious ? '' : 'none'}`} onClick={handlePrevious}>Mục trước</button>
-        <button className={`information-button ${hasNext ? '' : 'none'}`} onClick={handleNext}>Mục sau</button>
+        <button className={`information-button ${(hasNext && isComplete) ? '' : 'none'}`} onClick={handleNext}>Mục sau</button>
       </div>
     </div>
   )
