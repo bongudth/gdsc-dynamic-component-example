@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import './Form.scss'
 import axios from 'axios'
 import Question from '../Question/Question'
@@ -9,6 +9,7 @@ function Form(props) {
   const [sectionTitle, setSectionTitle] = useState('')
   const [sectionDescription, setSectionDescription] = useState('')
   const [questions, setQuestions] = useState([])
+  const [answerSections, setAnswerSections] = useState([])
   const [answers, setAnswers] = useState([])
 
   useEffect(() => {
@@ -22,11 +23,27 @@ function Form(props) {
     setSectionId(props.sectionId)
   }, [props.sectionId])
 
+  function usePrevious(value) {
+    const ref = useRef()
+    useEffect(() => {
+      ref.current = value
+    })
+    return ref.current
+  }
+
+  const previousSectionId = usePrevious(sectionId)
+
   useEffect(() => {
     if (sections.length === 0) return
+
     setSectionTitle(sections[sectionId].title)
     setSectionDescription(sections[sectionId].description)
     setQuestions(sections[sectionId].questions)
+    setAnswerSections((answerSections) => {
+      answerSections[previousSectionId] = answers
+      return [...answerSections]
+    })
+    setAnswers([])
   }, [sectionId, sections])
 
   useEffect(() => {
@@ -41,7 +58,13 @@ function Form(props) {
         <div className='form-description'>{sectionDescription}</div>
         {
           questions.map((question, index) => {
-            return <Question key={index} index={index} question={question} setAnswers={setAnswers} />
+            return <Question
+              sectionId={sectionId}
+              key={index}
+              index={index}
+              question={question}
+              setAnswers={setAnswers}
+            />
           })
         }
       </div>

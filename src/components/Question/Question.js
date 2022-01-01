@@ -13,6 +13,10 @@ function Question(props) {
     })
   }, [props.question, answer])
 
+  useEffect(() => {
+    setAnswer('')
+  }, [props.sectionId])
+
   const QuestionContent = () => {
     return (
       <div>
