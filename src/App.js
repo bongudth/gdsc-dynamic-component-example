@@ -6,6 +6,7 @@ import Form from './components/Form/Form'
 function App() {
   const [sectionId, setSectionId] = useState(0)
   const [isComplete, setIsComplete] = useState(false)
+  const [answersForm, setAnswersForm] = useState([])
 
   useEffect(() => {
     setIsComplete(false)
@@ -13,8 +14,8 @@ function App() {
 
   return (
     <div className='app-container'>
-      <Information setSectionId={setSectionId} isComplete={isComplete} />
-      <Form sectionId={sectionId} setIsComplete={setIsComplete} />
+      <Information setSectionId={setSectionId} isComplete={isComplete} answersForm={answersForm} />
+      <Form sectionId={sectionId} isComplete={isComplete} setIsComplete={setIsComplete} setAnswersForm={setAnswersForm} />
     </div>
   );
 }
