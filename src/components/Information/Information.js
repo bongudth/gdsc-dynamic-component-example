@@ -47,6 +47,7 @@ function Information(props) {
 
   const handleSubmit = () => {
     console.log(props.answersForm)
+    props.setIsSubmit(true)
   }
 
   return (
