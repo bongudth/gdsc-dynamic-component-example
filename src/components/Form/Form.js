@@ -45,7 +45,7 @@ function Form(props) {
       answersForm[sectionIdPrevious] = [...JSON.parse(JSON.stringify(answers))]
       return [...answersForm]
     })
-  }, [sectionId, sections])
+  }, [sectionId, sections, props.isSubmit])
 
   useEffect(() => {
     if (questions.length === 0) return
